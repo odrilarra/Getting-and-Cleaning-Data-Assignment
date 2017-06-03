@@ -3,8 +3,7 @@
 #################################################################
 
 ## Set working directory
-setwd("/Users/odrilarra/Documents/APUNTEAK/Coursera/3.Getting and Cleaning Data/ASSIGNMENT/UCI 
-      HAR Dataset")     # Change as required
+setwd("/Users/odrilarra/Documents/APUNTEAK/Coursera/3.Getting and Cleaning Data/ASSIGNMENT/UCI HAR Dataset")     # Change as required
 
 ## Install required packages
 install.packages("dplyr")
@@ -79,7 +78,6 @@ names(uniqueDF)
 library(dplyr)
 
 groupedDF <- group_by(uniqueDF,Subject,Activity)
-mean(groupedDF)
 tidyDF <- groupedDF %>% 
         summarise_each(funs(mean)) 
 View(tidyDF)
