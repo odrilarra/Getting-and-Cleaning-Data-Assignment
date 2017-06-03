@@ -1,11 +1,16 @@
+#################################################################
+## PART 1: Set working directory and install required packages ##
+#################################################################
+
 ## Set working directory
-setwd("/Users/odrilarra/Documents/APUNTEAK/Coursera/3.Getting and Cleaning Data/ASSIGNMENT/UCI HAR Dataset")
+setwd("/Users/odrilarra/Documents/APUNTEAK/Coursera/3.Getting and Cleaning Data/ASSIGNMENT/UCI 
+      HAR Dataset")     # Change as required
 
 ## Install required packages
 install.packages("dplyr")
 
 #######################################
-## PART 1: MERGE TRAIN AND TEST SETS ##
+## PART 2: Merge train and test sets ##
 #######################################
 
 ## Load datasets
@@ -34,7 +39,7 @@ mergedActivity <- rbind(YTrain,YTest)
 mergedSubsects <- rbind(SubjectTrain,SubjectTest)
 
 #################################################################
-## PART 2: Extract measurements on mean and standard deviation ##
+## PART 3: Extract measurements on mean and standard deviation ##
 #################################################################
 
 ## Load features.txt to assign colnames to mergedData
@@ -50,7 +55,7 @@ narrowData <- mergedData[,grepl("mean\\(\\)",names(mergedData))|grepl("std\\(\\)
 names(narrowData)
 
 ############################################
-## PART 3: Use descriptive activity names ##
+## PART 4: Use descriptive activity names ##
 ############################################
 mergedActivity[mergedActivity==1] <- "WALKING"
 mergedActivity[mergedActivity==2] <- "WALKING_UPSTAIRS"
@@ -60,7 +65,7 @@ mergedActivity[mergedActivity==5] <- "STANDING"
 mergedActivity[mergedActivity==6] <- "LAYING"
 
 ###################################################
-## PART 4: Label with descriptive variable names ##
+## PART 5: Label with descriptive variable names ##
 ###################################################
 ## Create one data frame with mergedSubjects mergedActivity and narrowData
 uniqueDF <- data.frame(Subject=mergedSubsects$V1,Activity=mergedActivity$V1,narrowData) 
@@ -69,8 +74,10 @@ uniqueDF <- data.frame(Subject=mergedSubsects$V1,Activity=mergedActivity$V1,narr
 names(uniqueDF)
 
 #############################################################################################
-## Part 5: Create tidy data set with the average of each variable for activity and subject ##
+## Part 6: Create tidy data set with the average of each variable for activity and subject ##
 #############################################################################################
+library(dplyr)
+
 groupedDF <- group_by(uniqueDF,Subject,Activity)
 mean(groupedDF)
 tidyDF <- groupedDF %>% 
